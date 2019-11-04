@@ -11,5 +11,14 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require jquery3
 //= require turbolinks
 //= require_tree .
+
+$( document ).on('turbolinks:load', function() {
+  var controller = $("body").data("controller");
+  var action = $("body").data("action");
+  if ((typeof(App[controller]) === 'object') && (typeof(App[controller][action]) === 'object')) {
+    App[controller][action].init();
+  }
+});

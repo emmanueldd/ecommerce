@@ -1,10 +1,25 @@
 class ProductsController < ApplicationController
+  require "stripe"
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+    Stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
+    @session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: 'T-shirt',
+        description: 'Comfortable cotton t-shirt',
+        images: ['https://example.com/t-shirt.png'],
+        amount: 500,
+        currency: 'eur',
+        quantity: 1,
+      }],
+      success_url: 'http://localhost:3000/merchants?success=true',
+      cancel_url: 'http://localhost:3000/merchants?cancel=true',
+    )
   end
 
   # GET /products/1
@@ -24,6 +39,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    @merchant = Merchant.find_by(name: product_params[:merchant_id])
     @product = Product.new(product_params)
 
     respond_to do |format|
@@ -69,6 +85,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :quantity, :merchant_id)
+      params.require(:product).permit(:name, :description, :price, :quantity, :merchant_id, :category_id)
     end
 end
