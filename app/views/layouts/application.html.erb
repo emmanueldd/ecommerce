@@ -15,6 +15,15 @@
     <% if alert.present? %>
       <p class="alert"><%= alert %></p>
     <% end %>
+    <% if current_user.active_order.present? %>
+      il y a <%= current_user.active_order.products.count %> élement(s) dans votre panier
+      <% current_user.active_order.order_has_products.each do |o_p| %>
+        <br><%= o_p.product.name %> - <%= o_p.price.fdiv(100) %>€
+      <% end %>
+      <div>
+        <%= link_to 'Payer', edit_order_path(current_user.active_order) %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

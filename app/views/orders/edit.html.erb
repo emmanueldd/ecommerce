@@ -1,0 +1,6 @@
+<h1> Edit order</h1>
+
+<%= form_with model: @order, class: "nifty_form" do |f| %>
+  <%= f.hidden_field :paid, value: true %>
+  <%= f.submit "Payer" %>
+<% end %>

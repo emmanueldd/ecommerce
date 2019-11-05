@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    @order_has_product = OrderHasProduct.new
     Stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],

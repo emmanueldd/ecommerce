@@ -4,4 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :orders
+
+  def active_order
+    return self.orders.find_by(paid: false)
+  end
+
 end
