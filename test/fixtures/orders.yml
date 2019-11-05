@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  amount: 1
+  paid: false
+  stripe_payment_intent_id: MyString
+  stripe_customer_id: MyString
+  paid_at: 2019-11-05 14:58:03
+
+two:
+  user: two
+  amount: 1
+  paid: false
+  stripe_payment_intent_id: MyString
+  stripe_customer_id: MyString
+  paid_at: 2019-11-05 14:58:03
